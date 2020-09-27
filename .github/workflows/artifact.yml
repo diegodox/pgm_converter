@@ -21,5 +21,5 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: ${{ matrix.os }}
-        path: ./target/release/build/pgm_converter
+        path: ./target/release/pgm_converter
       
