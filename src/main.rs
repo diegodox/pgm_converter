@@ -61,6 +61,7 @@ fn main() {
     }
 }
 fn doit(opt: CliOption) -> Result<String, String> {
+    // read image
     let img = match {
         match image::open(opt.src.clone()) {
             Ok(v) => v,
@@ -98,7 +99,7 @@ fn doit(opt: CliOption) -> Result<String, String> {
             img_width
         };
         let bottom = if let Some(height) = opt.height {
-            let row_bottom = height + left;
+            let row_bottom = height + top;
             if row_bottom > img_height {
                 img_height
             } else {
@@ -119,10 +120,12 @@ fn doit(opt: CliOption) -> Result<String, String> {
         .map(|(x, y)| img.get_pixel(x, y).0[0])
         .max()
         .unwrap();
+
     let magic_number = match opt.mode {
         FileType::Binary => "P5",
         FileType::Ascii => "P2",
     };
+
     let header = format!(
         "{}\n{} {}\n{}\n",
         magic_number,
@@ -131,6 +134,8 @@ fn doit(opt: CliOption) -> Result<String, String> {
         max
     );
     writer.write(header.as_bytes()).unwrap();
+
+    // write body
     match opt.mode {
         FileType::Ascii => {
             for y in y_range {
@@ -150,5 +155,6 @@ fn doit(opt: CliOption) -> Result<String, String> {
             }
         }
     }
+
     Ok("finish".to_string())
 }
