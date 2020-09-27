@@ -2,6 +2,13 @@
 
 Convert and clop pgm image.
 
+## Build
+
+[NOTE] You don't need to build. Executable files are available on github action's artifact.
+1. install rustup
+2. `$ cargo build --release`
+3. find executable: `./target/release/build/pgm_converter`
+
 ## Usage
 
 ```
