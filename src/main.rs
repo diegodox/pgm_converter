@@ -132,7 +132,7 @@ fn doit(opt: CliOption) -> Result<String, String> {
         y_range.len(),
         max
     );
-    writer.write(header.as_bytes()).unwrap();
+    writer.write_all(header.as_bytes()).unwrap();
 
     // write body
     match opt.mode {
@@ -143,13 +143,13 @@ fn doit(opt: CliOption) -> Result<String, String> {
                     .collect::<Vec<_>>()
                     .join(" ");
                 let line_lf = line + "\n";
-                writer.write(line_lf.as_bytes()).unwrap();
+                writer.write_all(line_lf.as_bytes()).unwrap();
             }
         }
         FileType::Binary => {
             for y in y_range {
                 for x in x_range.clone() {
-                    writer.write(&img.get_pixel(x, y).0).unwrap();
+                    writer.write_all(&img.get_pixel(x, y).0).unwrap();
                 }
             }
         }
