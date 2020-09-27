@@ -115,7 +115,6 @@ fn doit(opt: CliOption) -> Result<String, String> {
 
     let max = x_range
         .clone()
-        .clone()
         .zip(y_range.clone())
         .map(|(x, y)| img.get_pixel(x, y).0[0])
         .max()
