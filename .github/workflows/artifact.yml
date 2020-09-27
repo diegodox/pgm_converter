@@ -1,0 +1,32 @@
+name: release
+on:
+  workflow_dispatch:
+
+jobs:
+  dist:
+    name: dist
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-16.04, windows-latest, macos-latest]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: build
+      run: cargo build --release
+      
+    - name: Upload artifacts (except windows)
+      if: matrix.os != 'windows-latest'
+      uses: actions/upload-artifact@v1
+      with:
+        name: ${{ matrix.os }}
+        path: ./target/release/pgm_converter
+      
+    - name: Upload artifacts (windows)
+      if: matrix.os == 'windows-latest'
+      uses: actions/upload-artifact@v1
+      with:
+        name: ${{ matrix.os }}
+        path: ./target/release/pgm_converter.exe
