@@ -44,14 +44,14 @@ OPTIONS:
     $ pgm_converter -m a -s ./example.pgm -d ./example_cloped_ascii.pgm
     ```
 
--  Convert `./example.pgm` into Ascii and clop (3,3).
-
-    ```shell
-    $ pgm_converter -m a -s ./example.pgm -d ./example_cloped_ascii.pgm -l 3 -t 3
-    ```
-
 -  Convert `./example.pgm` into Ascii and clop (3,3)-(9,9).
 
     ```shell
     $ pgm_converter -m a -s ./example.pgm -d ./example_cloped_ascii.pgm -l 3 -t 3 -w 6 -h 6
+    ```
+    
+ -  Without specify `-w`, `-l`, they are assumed image size max.
+
+    ```shell
+    $ pgm_converter -m a -s ./example.pgm -d ./example_cloped_ascii.pgm -l 3 -t 3
     ```
