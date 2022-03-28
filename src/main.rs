@@ -115,7 +115,7 @@ fn doit(opt: CliOption) -> Result<String, String> {
 
     let max = x_range
         .clone()
-        .zip(y_range.clone())
+        .flat_map(|x| y_range.clone().map(|y| (x,y)))
         .map(|(x, y)| img.get_pixel(x, y).0[0])
         .max()
         .unwrap();
@@ -138,7 +138,7 @@ fn doit(opt: CliOption) -> Result<String, String> {
     match opt.mode {
         FileType::Ascii => {
             for y in y_range {
-                let line = (x_range.clone())
+                let line = x_range.clone()
                     .map(|x| format!("{}", img.get_pixel(x, y).0[0]))
                     .collect::<Vec<_>>()
                     .join(" ");
